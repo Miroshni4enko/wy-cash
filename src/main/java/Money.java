@@ -27,12 +27,20 @@ class Money implements Expression {
         return currency;
     }
 
-    public Sum plus(Money addend) {
+    public Expression plus(Expression addend) {
         return new Sum(this, addend);
     }
 
     public Money reduce(Bank bank, String to){
         int rate = bank.rate(currency, to);
         return new Money(amount / rate, to);
+    }
+
+    @Override
+    public String toString() {
+        return "Money{" +
+                "amount=" + amount +
+                ", currency='" + currency + '\'' +
+                '}';
     }
 }

@@ -70,4 +70,14 @@ public class WyCashTests {
     public void testIdentifyRate(){
         assertEquals(1, new Bank().rate("USD", "USD"));
     }
+
+    @Test
+    public void testMixedAddition() {
+        Expression fiveBucks = Money.dollar(5);
+        Expression tenFranc = Money.franc(10);
+        Bank bank = new Bank();
+        bank.addRate("CHF", "USD", 2);
+        Money tenBucks = bank.reduce(fiveBucks.plus(tenFranc), "USD");
+        assertEquals(tenBucks, Money.dollar(10));
+    }
 }
